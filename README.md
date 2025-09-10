@@ -58,8 +58,11 @@ Ejecución de market_analitic:
 Ejecución de process_data: 
 
 1. python .\process_data\processdata_main.py --mode all
+   
 
-Ejecución de data_set:
+Ejecución de data_set: 
+
+explicación: https://unanmanagua-my.sharepoint.com/:w:/g/personal/joshua_chavez22906906_estu_unan_edu_ni/EfKjbWbC_edKvzWvftX55kABmyK25ceRKjBwXVZO40wwkQ?e=nXQSba
 
 Leer el csv:
 
