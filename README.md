@@ -58,3 +58,14 @@ Ejecución de market_analitic:
 Ejecución de process_data: 
 
 1. python .\process_data\processdata_main.py --mode all
+
+Ejecución de data_set:
+
+Leer el csv:
+
+1. python data_set\dataset_main.py
+
+
+Generarlo:
+
+1. python data_set\generatecsv.py
