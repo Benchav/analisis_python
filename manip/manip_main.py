@@ -5,7 +5,7 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler, LabelEncoder
 import matplotlib.pyplot as plt    # Visualización de gráficos
 import seaborn as sns              # Visualización estadística (más estética)
 
-# --- Cargar Dataset desde CSV ---
+
 df = pd.read_csv("manip/data/dataset.csv")  # <-- Aquí se lee el CSV con los datos "malos" (NaN)
 
 print(" 1. Dataset Original (desde CSV):")

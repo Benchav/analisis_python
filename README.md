@@ -41,6 +41,9 @@ Paquetes principales (combinados para los tres pipelines):
 1. pip install pandas scikit-learn matplotlib mlxtend 
 2. pip install pandas scikit-learn matplotlib 
 3. pip install numpy pandas matplotlib seaborn
+4. pip install pandas numpy matplotlib seaborn scikit-learn
+
+
 
 Proceso de carga de entorno virtual de pyhton: 
 1. python -m venv venv 
