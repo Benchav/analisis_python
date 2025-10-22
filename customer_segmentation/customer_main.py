@@ -4,46 +4,36 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
-# import matplotlib # Ya no es necesario para 'use'
 
-# --- INICIO DE LA CORRECCIÓN DE RUTAS ---
-# 1. Obtener la ruta absoluta del directorio donde está ESTE script
-#    Ej: C:\Users\joshu\Downloads\analisis_python\customer_segmentation
+
+
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# 2. Subir un nivel para encontrar la raíz del proyecto
-#    Ej: C:\Users\joshu\Downloads\analisis_python
+
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 
-# 3. Definir la ruta de entrada CORRECTA para el CSV original
-#    Basándonos en tu estructura, está en 'analisis_python/data/'
+
 DEFAULT_CSV_PATH = os.path.join(PROJECT_ROOT, 'data', 'ventas_tecnologia_100_plus5000.csv')
 
-# 4. Definir las carpetas de SALIDA:
-#    - CSVs a customer_segmentation/data/
-#    - Gráficos a customer_segmentation/graphic/
+
 OUTPUT_DATA_DIR = os.path.join(SCRIPT_DIR, 'data')
 OUTPUT_GRAPHIC_DIR = os.path.join(SCRIPT_DIR, 'graphic')
 
 
-# 5. Definir todas las rutas de SALIDA
-#    CSVs
+
 PREPROCESSED_PATH = os.path.join(OUTPUT_DATA_DIR, 'customer_preprocessed.csv')
 RFM_PATH = os.path.join(OUTPUT_DATA_DIR, 'rfm_data.csv')
 CLUSTERED_PATH = os.path.join(OUTPUT_DATA_DIR, 'rfm_clustered.csv')
 
-#    Gráficos (PNGs)
+
 ELBOW_PLOT_PATH = os.path.join(OUTPUT_GRAPHIC_DIR, 'elbow_plot.png')
 SILHOUETTE_PLOT_PATH = os.path.join(OUTPUT_GRAPHIC_DIR, 'silhouette_plot.png')
 SCATTER_PLOT_PATH = os.path.join(OUTPUT_GRAPHIC_DIR, 'clusters_scatter.png')
 PROFILE_PLOT_PATH = os.path.join(OUTPUT_GRAPHIC_DIR, 'cluster_profiles.png')
-# --- FIN DE LA CORRECCIÓN DE RUTAS ---
 
 
-# Ya NO usamos matplotlib.use('Agg')
-# Esto permite que plt.show() funcione y abra las ventanas interactivas.
 
-# ----------------------------- Preprocesamiento -----------------------------
+# Preprocesamiento  Crea el customer_processed.csv
 
 # Usar las nuevas rutas por defecto
 def preprocessing_data(input=DEFAULT_CSV_PATH, output=PREPROCESSED_PATH):
@@ -111,7 +101,7 @@ def preprocessing_data(input=DEFAULT_CSV_PATH, output=PREPROCESSED_PATH):
     return output
 
 
-# --------------------------------- RFM -------------------------------------
+#  RFM crea rfm_data.csv
 
 # Usar las nuevas rutas por defecto
 def create_rfm(preprocessed_path=PREPROCESSED_PATH, output=RFM_PATH):
@@ -163,10 +153,10 @@ def create_rfm(preprocessed_path=PREPROCESSED_PATH, output=RFM_PATH):
         
     rfm.to_csv(output)
     print(f" RFM creado y guardado en: {output}")
-    return rfm, output # Devolver rfm y la ruta de salida
+    return rfm, output 
 
 
-# ----------------------------- Escalado RFM -------------------------------
+#  Escalado RFM 
 
 # Usar la nueva ruta por defecto
 def scale_rfm(rfm_path=RFM_PATH):
@@ -193,7 +183,7 @@ def scale_rfm(rfm_path=RFM_PATH):
     return rfm, rfm_scaled
 
 
-# ----------------------------- Elección de K -------------------------------
+#  Elección de K 
 
 def find_optimal_k(rfm_scaled, max_k=10):
     """
@@ -215,7 +205,7 @@ def find_optimal_k(rfm_scaled, max_k=10):
     K = range(2, safe_max_k + 1)
 
     for k in K:
-        # Añadir n_init='auto' para suprimir warnings
+
         km = KMeans(n_clusters=k, random_state=42, n_init='auto') 
         labels = km.fit_predict(rfm_scaled)
         inertia.append(km.inertia_)
@@ -235,10 +225,10 @@ def find_optimal_k(rfm_scaled, max_k=10):
     ax1.grid(True)
     fig1.tight_layout()
     
-    fig1.savefig(ELBOW_PLOT_PATH) # <--- CAMBIO: Guardar el PNG
+    fig1.savefig(ELBOW_PLOT_PATH) 
     print(f"Gráfico del codo guardado en: {ELBOW_PLOT_PATH}")
     
-    plt.show() # <--- Mostrar en ventana
+    plt.show() 
     plt.close(fig1)                          
 
     # --- Gráfico 2: Silueta (Estilo OO) ---
@@ -250,14 +240,14 @@ def find_optimal_k(rfm_scaled, max_k=10):
     ax2.grid(True)
     fig2.tight_layout()
     
-    fig2.savefig(SILHOUETTE_PLOT_PATH) # <--- CAMBIO: Guardar el PNG
+    fig2.savefig(SILHOUETTE_PLOT_PATH) 
     print(f"Gráfico de silueta guardado en: {SILHOUETTE_PLOT_PATH}")
 
-    plt.show() # <--- Mostrar en ventana
+    plt.show() 
     plt.close(fig2)                          
 
 
-# ------------------------------ Clustering -------------------------------
+#  Clustering 
 
 # Usar la nueva ruta por defecto
 def run_kmeans(rfm, rfm_scaled, k=4, output=CLUSTERED_PATH):
@@ -285,10 +275,10 @@ def run_kmeans(rfm, rfm_scaled, k=4, output=CLUSTERED_PATH):
         
     rfm.to_csv(output)
     print(f" KMeans ejecutado con k={k}. Resultado guardado en: {output}")
-    return rfm, output # Devolver rfm y la ruta de salida
+    return rfm, output 
 
 
-# ---------------------------- Análisis clusters ---------------------------
+# Análisis clusters 
 
 def analyze_clusters(rfm):
     """
@@ -305,7 +295,7 @@ def analyze_clusters(rfm):
     return cluster_profile, cluster_size
 
 
-# ---------------------------- Visualizaciones ----------------------------
+# Visualizaciones 
 
 def plot_clusters_scatter(rfm):
     """
@@ -369,16 +359,16 @@ def plot_cluster_profiles(cluster_profile):
     
     fig.tight_layout()
     
-    fig.savefig(PROFILE_PLOT_PATH) # <--- CAMBIO: Guardar el PNG
+    fig.savefig(PROFILE_PLOT_PATH) 
     print(f"Gráfico de perfiles guardado en: {PROFILE_PLOT_PATH}")
 
-    plt.show() # <--- Mostrar en ventana
+    plt.show() 
     plt.close(fig)                             
 
 
-# ---------------------------------- Main ----------------------------------
+#  Main 
 
-# Bloque 'if __name__ == "__main__":' actualizado
+
 if __name__ == '__main__':
     print("Iniciando pipeline de segmentación...")
     try:
